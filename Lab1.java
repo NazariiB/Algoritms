@@ -25,8 +25,7 @@
          colour_of_node = 1;  
      }      
  }  
-   
- // A class named Node_Red_Black_Tree is created whose each object will work as the Red-Black Tree  
+
  class Red_Black_Tree  
  {  
      private Node_Red_Black_Tree current_node;  
@@ -36,7 +35,7 @@
      private Node_Red_Black_Tree header_node;      
      private static Node_Red_Black_Tree node_null;  
        
-     /* static block to initialize the data */  
+
      static   
      {  
          node_null = new Node_Red_Black_Tree(0);  
@@ -44,29 +43,28 @@
          node_null.right_node_addr = node_null;  
      }  
        
-     // color coding  
-     /* Black - 1  RED - 0 */  
+
      static final int BLACK = 1;      
      static final int RED   = 0;  
    
-     /* Constructor of the Red_Black_Tree class  */  
+
      public Red_Black_Tree(int negInf)  
      {  
          header_node = new Node_Red_Black_Tree(negInf);  
          header_node.left_node_addr = node_null;  
          header_node.right_node_addr = node_null;  
      }  
-     /* Function to check if tree is empty */  
+
      public boolean isEmpty()  
      {  
          return header_node.right_node_addr == node_null;  
      }  
-     /* Make the tree logically empty */  
+
      public void makeEmpty()  
      {  
          header_node.right_node_addr = node_null;  
      }  
-     /* Function to insert item in the Red_Black_Tree class object */  
+
      public void insert(int item )  
      {  
          current_node = parent_node = grand_node = header_node;  
@@ -77,15 +75,15 @@
              grand_node = parent_node;   
              parent_node = current_node;  
              current_node = item < current_node.node_data ? current_node.left_node_addr : current_node.right_node_addr;  
-             // Check if two red children and fix if so              
+           
              if (current_node.left_node_addr.colour_of_node == RED && current_node.right_node_addr.colour_of_node == RED)  
                  handleReorient( item );  
          }  
-         // Insertion fails if already present  
+
          if (current_node != node_null)  
              return;  
          current_node = new Node_Red_Black_Tree(item, node_null, node_null);  
-         // Attach to parent_node  
+
          if (item < parent_node.node_data)  
              parent_node.left_node_addr = current_node;  
          else  
@@ -94,21 +92,21 @@
      }  
      private void handleReorient(int item)  
      {  
-         // Do the colour_of_node flip  
+
          current_node.colour_of_node = RED;  
          current_node.left_node_addr.colour_of_node = BLACK;  
          current_node.right_node_addr.colour_of_node = BLACK;  
    
          if (parent_node.colour_of_node == RED)     
          {  
-             // Have to rotate  
+
              grand_node.colour_of_node = RED;  
              if (item < grand_node.node_data != item < parent_node.node_data)  
-                 parent_node = rotate( item, grand_node );  // Start dbl rotate  
+                 parent_node = rotate( item, grand_node ); 
              current_node = rotate(item, great_node );  
              current_node.colour_of_node = BLACK;  
          }  
-         // Make root black  
+
          header_node.right_node_addr.colour_of_node = BLACK;   
      }        
      private Node_Red_Black_Tree rotate(int item, Node_Red_Black_Tree parent_node)  
@@ -118,7 +116,7 @@
          else  
              return parent_node.right_node_addr = item < parent_node.right_node_addr.node_data ? rotateWithleft_node_addrChild(parent_node.right_node_addr) : rotateWithright_node_addrChild(parent_node.right_node_addr);    
      }  
-     /* Rotate binary tree node with left_node_addr child */  
+ 
      private Node_Red_Black_Tree rotateWithleft_node_addrChild(Node_Red_Black_Tree k2)  
      {  
          Node_Red_Black_Tree k1 = k2.left_node_addr;  
@@ -126,7 +124,7 @@
          k1.right_node_addr = k2;  
          return k1;  
      }  
-     /* Rotate binary tree node with right_node_addr child */  
+
      private Node_Red_Black_Tree rotateWithright_node_addrChild(Node_Red_Black_Tree k1)  
      {  
          Node_Red_Black_Tree k2 = k1.right_node_addr;  
@@ -135,7 +133,7 @@
          return k2;  
      }  
   
-/* Functions to count number of nodes */  
+
      public int countNodes()  
      {  
          return countNodes(header_node.right_node_addr);  
@@ -152,7 +150,7 @@
              return l;  
          }  
      }  
-     /* Functions to search for an node_data */  
+
      public boolean search(int val)  
      {  
          return search(header_node.right_node_addr, val);  
@@ -176,7 +174,7 @@
          }  
          return found;  
      }  
-     /* Function for in order traversal of the Red_Black_Tree class object*/   
+
      public void inorder()  
      {  
          inorder(header_node.right_node_addr);  
@@ -193,7 +191,7 @@
              inorder(r.right_node_addr);  
          }  
      }  
-     /* Function for pre-order traversal of the Red_Black_Tree class object*/   
+
      public void preorder()  
      {  
          preorder(header_node.right_node_addr);  
@@ -210,7 +208,7 @@
              preorder(r.right_node_addr);  
          }  
      }  
-     /* Function for post-order traversal of the Red_Black_Tree class object*/  
+
      public void postorder()  
      {  
          postorder(header_node.right_node_addr);  
@@ -229,17 +227,17 @@
      }       
  }  
    
- /* Class Red_Black_Tree_Run */  
+
 class Red_Black_Tree_Run  
  {  
      public static void main(String[] args)  
      {              
         Scanner scannner_object = new Scanner(System.in);  
-        /* Creating object of RedBlack Tree */  
+
         Red_Black_Tree red_black_tree_object = new Red_Black_Tree(Integer.MIN_VALUE);   
         System.out.println("Red Black Tree Test\n");            
         char ch;  
-        /*  Perform tree operations  */  
+
         do      
         {  
             System.out.println("\nThe options list for Red Black Tree::\n");  
