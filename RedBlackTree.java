@@ -37,7 +37,7 @@
              parent = current;
              current = item < current.getData() ? current.getLeft() : current.getRight();
              if (!current.getLeft().isBlack() && !current.getRight().isBlack())
-                 handleReorient( item );  
+                 balance( item );
          }  
 
          current = new Node(item, nullNode, nullNode);
@@ -46,13 +46,13 @@
              parent.setLeft(current);
          else  
              parent.setRight(current);
-         handleReorient( item );  
+         balance( item );
      }  
-     private void handleReorient(int item)  
+     private void balance(int item)
      {
          current.setColour(RED);
          current.getLeft().setColour(BLACK);
-        current.getRight().setColour(BLACK);
+         current.getRight().setColour(BLACK);
          if (!parent.isBlack())
          {
              grandNode.setColour(RED);
