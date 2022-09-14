@@ -1,21 +1,53 @@
 public class Node {
 
-    Node left_node_addr, right_node_addr;
+    private Node left, right;
 
-    int node_data;
+    private int data;
 
-    int colour_of_node;
+    private boolean isBlack;
 
-    public Node(int thenode_data)
+    public Node(int _data)
     {
-        this( thenode_data, null, null );
+        this( _data, null, null );
     }
 
-    public Node(int thenode_data, Node lt, Node rt)
+    public Node(int _data, Node lt, Node rt)
     {
-        left_node_addr = lt;
-        right_node_addr = rt;
-        node_data = thenode_data;
-        colour_of_node = 1;
+        left = lt;
+        right = rt;
+        data = _data;
+        isBlack = true;
+    }
+
+    public Node getRight() {
+        return right;
+    }
+
+    public Node getLeft() {
+        return left;
+    }
+
+    public void setRight(Node right) {
+        this.right = right;
+    }
+
+    public void setColour(boolean black) {
+        isBlack = black;
+    }
+
+    public boolean isBlack() {
+        return isBlack;
+    }
+
+    public void setLeft(Node left) {
+        this.left = left;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public void setData(int data) {
+        this.data = data;
     }
 }
