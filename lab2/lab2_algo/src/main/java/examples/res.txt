@@ -1,0 +1,1 @@
+The rooted vertex is: 4
