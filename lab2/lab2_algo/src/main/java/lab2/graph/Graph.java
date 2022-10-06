@@ -1,13 +1,27 @@
 package lab2.graph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class Graph {
 
     private final HashMap<String, ArrayList<String>> vertex = new HashMap<>();
+    private final ArrayList<String> res = new ArrayList<>();
 
-    public void addVertex(String key, String value) {
+    public void readDocuments(String path) throws IOException {
+        File file = new File(path);
+        Scanner dataScanner = new Scanner(file);
+
+        while (dataScanner.hasNextLine()) {
+            String[] data = dataScanner.nextLine().split(" ");
+            addVertex(data[0], data[1]);
+        }
+    }
+
+    private void addVertex(String key, String value) {
         if(vertex.containsKey(key)) {
             vertex.get(key).add(value);
         } else {
@@ -21,23 +35,67 @@ public class Graph {
         }
     }
 
-    private void recursive2(String v, HashMap<String, Boolean> visited)
+    private void recursiveFun(String v, HashMap<String, Boolean> visited)
     {
         visited.put(v, Boolean.TRUE);
         for (String x : vertex.get(v)) {
             if(!visited.get(x)) {
-                recursive2(x, visited);
-                System.out.println(x);
+                recursiveFun(x, visited);
+                res.add(x);
             }
         }
     }
 
-    public void getProperWay() {
+    private void safeRes() throws IOException {
+        StringBuffer result = new StringBuffer();
+        for (String str: res) {
+            result.append(str).append("\n");
+        }
+        Files.write(Paths.get("D:/NAZIK/AlgoLabs/lab2/lab2_algo/src/main/java/lab2/result/res.txt"),
+                Collections.singleton(result));
+        res.clear();
+    }
+
+    public void getProperWay() throws IOException {
         HashMap<String, Boolean> visited = new HashMap<>();
         for (String v: vertex.keySet()) {
             visited.put(v, Boolean.FALSE);
         }
-        recursive2("visa", visited);
-        System.out.println("visa");
+        String root = getRootedElement();
+        if(root == null) {
+            throw new RuntimeException();
+        }
+        recursiveFun(root, visited);
+        res.add(root);
+        safeRes();
+    }
+
+    private String getRootedElement() {
+
+        HashMap<String, Boolean> visited = new HashMap<>();
+        for (String v: vertex.keySet()) {
+            visited.put(v, Boolean.FALSE);
+        }
+
+        String v = "";
+
+        for (String vert: vertex.keySet()) {
+            if(!visited.get(vert)){
+                recursiveFun(vert, visited);
+                v = vert;
+            }
+        }
+
+        for (String vert: vertex.keySet()) {
+            visited.put(vert, Boolean.FALSE);
+        }
+        recursiveFun(v, visited);
+        for (String str : visited.keySet()) {
+            if (!visited.get(str)) {
+                return null;
+            }
+        }
+        res.clear();
+        return v;
     }
 }

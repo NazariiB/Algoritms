@@ -2,34 +2,15 @@ package lab2.main;
 
 import lab2.graph.Graph;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Graph graph = new Graph();
-        boolean isNext = true;
-        Scanner scanner = new Scanner(System.in);
-        while (isNext) {
-            System.out.println("Enter next documents:");
-            String[] str = scanner.nextLine().split(" ");
-            if(str.length == 1){
-                System.out.println("the program no longer accepts data.\n");
-                break;
-            }
-            graph.addVertex(str[0], str[1]);
-        }
-//        graph.addVertex("visa", "foreignpassport");
-//        graph.addVertex("visa", "hotel");
-//        graph.addVertex("visa", "bankstatement");
-//        graph.addVertex("bankstatement", "nationalpassport");
-//        graph.addVertex("hotel", "creditcard");
-//        graph.addVertex("creditcard", "nationalpassport");
-//        graph.addVertex("nationalpassport", "birthcertificate");
-//        graph.addVertex("foreignpassport", "nationalpassport");
-//        graph.addVertex("foreignpassport", "militarycertificate");
-//        graph.addVertex("militarycertificate", "nationalpassport");
+        graph.readDocuments("D:/NAZIK/AlgoLabs/lab2/lab2_algo/src/main/java/lab2/examples/1.txt");
 
         graph.getProperWay();
     }
